@@ -1,24 +1,31 @@
 import numpy as np
 
-# Define input patterns
-x1 = np.array([1.0, -2, 1.5, 0.0])
-x2 = np.array([1.0, -0.5, -2.0, -1.5])
-x3 = np.array([0.0, 1.0, -1.0, 1.5])
-x4 = np.array([1.0, 1.5, -1.75, -0.5])
-inp = np.array([x1, x2, x3, x4])
+# Define input vector X (example data)
+X = np.array([0.5, 0.3, 0.7])
 
-# Initialize weights with zeros
-weight = np.array([0, 0, 0, 0], dtype=np.int32)
-weight1 = np.array([0, 0, 0, 0], dtype=np.int32)
+# Define weight matrix W (example weights)
+W = np.array([[0.2, 0.3, -0.1],
+              [-0.5, 0.7, 0.4],
+              [0.1, -0.2, 0.6]])
 
-# Define target values for each pattern
-target = np.array([1, 1, 1, 1])
+# Define bias vector b (example biases)
+b = np.array([0.1, -0.3, 0.2])
 
-print('The modified values in weight and weight1:')
-for i in range(len(inp)):
-    weight = weight.astype(np.float64)
-    weight1 = weight1.astype(np.float64)
-    weight += target[i] * inp[i]
-    weight1 += target[i] * inp[i]
-    print('Weight:', weight)
-    print('Weight1:', weight1)
+# Define activation function (e.g., sigmoid)
+def sigmoid(x):
+    return 1 / (1 + np.exp(-x))
+
+# Calculate activations of hidden layer (Z)
+Z = np.dot(W, X) + b
+A = sigmoid(Z)
+
+print("Activations of the hidden layer:")
+print(A)
+
+# Define threshold values for activation
+thresholds = np.array([0.5, 0.6, 0.7])
+
+# Check if neurons are activated based on thresholds
+activated_neurons = A > thresholds
+print("Activated neurons:")
+print(activated_neurons)
